@@ -10,16 +10,6 @@ from itertools import chain
 import math
 from pprint import pprint
 
-def preprocess_text(text: str) -> str:
-    """
-    Принимает на вход текст с требуемыми навыками.
-    Выполняет очистку, лемматизацию и фильтрацию по части речи.
-    Возвращает отфильтрованные леммы через пробел без запятых сплошным текстом.
-    """
-    nlp = spacy.load("ru_core_news_sm")
-    # put your code here
-    pass
-
 
 def get_keywords(df, n_keywords=5):
     """
@@ -53,10 +43,8 @@ def create_network(df):
             if df.iloc[i, 0] != df.iloc[j, 0] and not set(df.iloc[i, 1]).isdisjoint(df.iloc[j, 1]):
                 vac_edges.append(((df.iloc[i, 0], df.iloc[j, 0]), len(set(df.iloc[i, 1]).intersection(df.iloc[j, 1]))))
     vac_edges = [(tuple(sorted(edge[0])), edge[1]) for edge in vac_edges]
-    # pprint(vac_edges)
     weighted_edges = [(edge[0][0], edge[0][1], {"weight": edge[1]}) for edge in set(vac_edges)]
     return weighted_edges
-    # pass
 
 
 def plot_network(vac_edges):
@@ -144,10 +132,3 @@ def plot_communities(communities, graph):
     )
     # fig.show()
     return fig
-
-
-def plot_one_community(graph, community):
-    """
-    Строит график в plotly для одного сообщества.
-    """
-    pass
